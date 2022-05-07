@@ -1,24 +1,15 @@
-import styled from 'styled-components';
+import { Routes, Route } from 'react-router-dom';
 
-import ContactForm from 'components/ContactForm';
-import ContactsList from 'components/ContactsList';
-import Filter from 'components/Filter';
+import HomePage from 'pages/HomePage';
+import SignUpPage from 'pages/SignUpPage';
+import LoginPage from 'pages/LoginPage';
 
 const App = () => (
-  <Section>
-    <Title>Phonebook</Title>
-    <Filter />
-    <ContactForm />
-    <ContactsList />
-  </Section>
+  <Routes>
+    <Route path="/" exact element={<HomePage />} />
+    <Route path="/signup" element={<SignUpPage />} />
+    <Route path="/login" element={<LoginPage />} />
+  </Routes>
 );
-
-const Section = styled.section`
-  padding: 20px;
-`;
-
-const Title = styled.h1`
-  margin-bottom: 10px;
-`;
 
 export default App;
