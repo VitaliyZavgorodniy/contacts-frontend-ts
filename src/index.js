@@ -12,7 +12,7 @@ const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename="/goit-react-hw-08-phonebook/">
     <Provider store={store.store}>
       <PersistGate loading={null} persistor={store.persistor}>
         <App />
