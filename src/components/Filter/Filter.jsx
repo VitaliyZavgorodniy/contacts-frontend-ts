@@ -1,23 +1,26 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import Input from 'components/UI-kit/Inputs/Input';
+
 const Filter = ({ value, onUpdate }) => (
   <Wrapper>
     <Title>Search</Title>
-    <input onChange={(e) => onUpdate(e.target.value)} value={value} />
+    <Input onChange={(e) => onUpdate(e.target.value)} value={value} />
   </Wrapper>
 );
 
 const Wrapper = styled.div`
-  width: 320px;
-  margin: 10px 0;
+  width: 300px;
+  margin-bottom: 10px;
   padding: 10px;
-  border: 1px solid black;
+  background-color: #1976d3;
   border-radius: 5px;
 `;
 
 const Title = styled.h2`
-  margin-top: 0;
+  margin-bottom: 20px;
+  color: #fff;
 `;
 
 Filter.propTypes = {

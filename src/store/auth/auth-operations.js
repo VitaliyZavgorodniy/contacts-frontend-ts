@@ -2,6 +2,8 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import authSelectors from './auth-selectors';
 
+import { showNotification } from 'utils/showNotification';
+
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const token = {
@@ -13,29 +15,41 @@ const token = {
   },
 };
 
-const signUp = createAsyncThunk('auth/signup', async (credentials) => {
-  try {
-    const { data } = await axios.post('/users/signup', credentials);
+const signUp = createAsyncThunk(
+  'auth/signup',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/users/signup', credentials);
 
-    token.set(data.token);
+      token.set(data.token);
 
-    return data;
-  } catch (err) {
-    console.error(err);
+      return data;
+    } catch (err) {
+      const { email, password } = err.response.data.errors;
+
+      if (email?.message) showNotification(email.message);
+      if (password?.message) showNotification(password.message);
+
+      return rejectWithValue(err.response.data);
+    }
   }
-});
+);
 
-const logIn = createAsyncThunk('auth/login', async (credentials) => {
-  try {
-    const { data } = await axios.post('/users/login', credentials);
+const logIn = createAsyncThunk(
+  'auth/login',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/users/login', credentials);
 
-    token.set(data.token);
+      token.set(data.token);
 
-    return data;
-  } catch (err) {
-    console.error(err);
+      return data;
+    } catch (err) {
+      showNotification('Incorrect email or password!');
+      return rejectWithValue(err.response.data);
+    }
   }
-});
+);
 
 const logOut = createAsyncThunk('auth/logout', async () => {
   try {

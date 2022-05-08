@@ -1,34 +1,32 @@
-import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import SaveIcon from '@mui/icons-material/Save';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
-import Input from 'components/Inputs/Input';
+import Input from 'components/UI-kit/Inputs/Input';
+import SimpleButton from 'components/UI-kit/Buttons/SimpleButton';
 
 import useLocalStorage from 'hooks/useLocalStorage';
 
-// import { comparedContact } from 'utils/compareContacts';
+import { showNotification } from 'utils/showNotification';
+import { comparedContact } from 'utils/compareContacts';
 
-const ContactForm = ({ onCreate, isFetching }) => {
+const ContactForm = ({ contacts, onCreate, isFetching }) => {
   const [name, setName] = useLocalStorage('name', '');
   const [number, setNumber] = useLocalStorage('phone', '');
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    setError('');
-  }, [name, number]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // if (name.length === 0) return setError('Enter valid name');
-    // if (phone.length !== 12) return setError('Enter valid phone');
-    // if (comparedContact(contacts, 'phone', number))
-    //   return setError('This number is already taken');
-    // if (comparedContact(contacts, 'name', name))
-    //   return setError('This name is already taken');
+    if (name.trim().length === 0) return showNotification('Enter valid name');
+    if (number.length <= 10) return showNotification('Enter valid phone');
+
+    if (comparedContact(contacts, 'number', number))
+      return showNotification('This number is already taken');
+    if (comparedContact(contacts, 'name', name))
+      return showNotification('This name is already taken');
 
     onCreate({ name, number });
 
@@ -47,6 +45,7 @@ const ContactForm = ({ onCreate, isFetching }) => {
         disabled={isFetching}
         onChange={(e) => setName(e.target.value)}
       />
+
       <PhoneInput
         value={number}
         onChange={(number) => setNumber(number)}
@@ -57,29 +56,28 @@ const ContactForm = ({ onCreate, isFetching }) => {
           required: true,
           autoFocus: true,
           disabled: isFetching,
+          style: { borderColor: '#1976d3' },
         }}
       />
 
-      <ErrorInfo>{error}</ErrorInfo>
-
-      <SubmitBtn type="submit">Add contact</SubmitBtn>
+      <ItemWrapper>
+        <SimpleButton
+          title="Add contact"
+          type="submit"
+          isLoading={isFetching}
+          icon={<SaveIcon />}
+        />
+      </ItemWrapper>
     </Form>
   );
 };
 
 const Form = styled.form`
-  width: 320px;
-  padding: 10px;
-  border: 1px solid black;
-  border-radius: 5px;
+  width: 300px;
 `;
 
-const SubmitBtn = styled.button`
-  margin-top: 10px;
-`;
-
-const ErrorInfo = styled.p`
-  color: red;
+const ItemWrapper = styled.div`
+  margin-top: 15px;
 `;
 
 ContactForm.propTypes = {

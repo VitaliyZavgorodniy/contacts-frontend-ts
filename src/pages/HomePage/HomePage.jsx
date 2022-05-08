@@ -1,24 +1,34 @@
 import styled from 'styled-components';
 
+import Section from 'components/UI-kit/Containers/Section';
+import Container from 'components/UI-kit/Containers/Container';
+
 import ContactForm from 'components/ContactForm';
 import ContactsList from 'components/ContactsList';
 import Filter from 'components/Filter';
 
 const HomePage = () => (
   <Section>
-    <Title>Phonebook</Title>
-    <Filter />
-    <ContactForm />
-    <ContactsList />
+    <Container>
+      <Block>
+        <Side>
+          <Filter />
+          <ContactForm />
+        </Side>
+
+        <ContactsList />
+      </Block>
+    </Container>
   </Section>
 );
 
-const Section = styled.section`
-  padding: 20px;
+const Block = styled.div`
+  display: flex;
+  padding: 20px 0;
 `;
 
-const Title = styled.h1`
-  margin-bottom: 10px;
+const Side = styled.div`
+  margin-right: 20px;
 `;
 
 export default HomePage;

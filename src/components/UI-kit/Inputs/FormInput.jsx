@@ -35,6 +35,7 @@ const FormInput = ({
           </IconButton>
         </InputAdornment>
       }
+      style={{ borderColor: '#1976d3' }}
       margin="dense"
       required
     />

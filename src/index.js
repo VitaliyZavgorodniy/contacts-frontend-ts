@@ -6,7 +6,7 @@ import store from 'store';
 
 import App from 'components/App';
 
-import 'normalize.css';
+import 'index.css';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);

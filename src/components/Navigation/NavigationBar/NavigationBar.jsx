@@ -4,10 +4,10 @@ import styled from 'styled-components';
 const NavigationBar = () => (
   <Menu>
     <Item>
-      <NavLink to="/login">Log In</NavLink>
+      <StyledLink to="/login">Log In</StyledLink>
     </Item>
     <Item>
-      <NavLink to="/signup">Sign Up</NavLink>
+      <StyledLink to="/signup">Sign Up</StyledLink>
     </Item>
   </Menu>
 );
@@ -18,6 +18,15 @@ const Menu = styled.ul`
 
 const Item = styled.li`
   padding: 5px;
+`;
+
+const StyledLink = styled(NavLink)`
+  color: #fff;
+
+  &:hover {
+    cursor: pointer;
+    color: #ddd;
+  }
 `;
 
 export default NavigationBar;
