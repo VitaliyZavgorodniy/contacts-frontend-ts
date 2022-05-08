@@ -9,9 +9,9 @@ import Input from 'components/Inputs/Input';
 
 import useLocalStorage from 'hooks/useLocalStorage';
 
-import { comparedContact } from 'utils/compareContacts';
+// import { comparedContact } from 'utils/compareContacts';
 
-const ContactForm = ({ onCreate, isFetching, contacts }) => {
+const ContactForm = ({ onCreate, isFetching }) => {
   const [name, setName] = useLocalStorage('name', '');
   const [number, setNumber] = useLocalStorage('phone', '');
   const [error, setError] = useState('');
@@ -82,16 +82,9 @@ const ErrorInfo = styled.p`
   color: red;
 `;
 
-// ContactForm.propTypes = {
-//   onCreate: PropTypes.func.isRequired,
-//   isFetching: PropTypes.bool.isRequired,
-//   contacts: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//       name: PropTypes.string.isRequired,
-//       number: PropTypes.string.isRequired,
-//     })
-//   ),
-// };
+ContactForm.propTypes = {
+  onCreate: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+};
 
 export default ContactForm;
