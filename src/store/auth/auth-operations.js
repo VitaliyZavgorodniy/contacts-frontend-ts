@@ -29,6 +29,7 @@ const signUp = createAsyncThunk(
 
       if (email?.message) showNotification(email.message);
       if (password?.message) showNotification(password.message);
+      showNotification('Sign up error!');
 
       return rejectWithValue(err.response.data);
     }
