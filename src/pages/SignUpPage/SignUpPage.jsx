@@ -6,19 +6,34 @@ import FormInput from 'components/UI-kit/Inputs/FormInput';
 import PasswordInput from 'components/UI-kit/Inputs/PasswordInput';
 import SubmitButton from 'components/UI-kit/Buttons/SubmitButton';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { authOperations, authSelectors } from 'store/auth';
+
 const SignUpPage = () => {
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  const dispatch = useDispatch();
+
+  const isLogged = useSelector(authSelectors.getLoggedIn);
+
+  const [name, setUserName] = useState('');
+  const [email, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    console.log({ userName, userEmail, password });
+    dispatch(authOperations.signUp({ name, email, password }));
   };
+
+  const handleLogout = () => dispatch(authOperations.logOut());
 
   return (
     <Wrapper>
+      {isLogged ? (
+        <button onClick={handleLogout}>LogOut</button>
+      ) : (
+        <div>LogIn</div>
+      )}
+
       <Form
         component="form"
         noValidate
@@ -28,7 +43,7 @@ const SignUpPage = () => {
         <Item>
           <FormInput
             name="Name"
-            value={userName}
+            value={name}
             onChange={setUserName}
             placeholder="User Name"
           />
@@ -36,7 +51,7 @@ const SignUpPage = () => {
         <Item>
           <FormInput
             name="Email"
-            value={userEmail}
+            value={email}
             onChange={setUserEmail}
             placeholder="user@mail.com"
             type="email"
@@ -50,7 +65,6 @@ const SignUpPage = () => {
             placeholder="Enter password"
           />
         </Item>
-
         <Item>
           <SubmitButton title="Sign up!" />
         </Item>

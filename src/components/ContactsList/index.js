@@ -1,20 +1,16 @@
 import { connect } from 'react-redux';
 import { default as ContactsList } from './ContactsList';
 
-import {
-  fetchContacts,
-  removeContact,
-} from 'store/operations/contactsOperations';
-import { getFilteredContacts, getIsLoading } from 'selectors/contactSelector';
+import { contactsOperations, contactsSelectors } from 'store/contacts';
 
 const mapStateToProps = (state) => ({
-  contacts: getFilteredContacts(state),
-  isLoading: getIsLoading(state),
+  contacts: contactsSelectors.getItems(state),
+  isFetching: contactsSelectors.getIsFetchingContacts(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onRemove: (id) => dispatch(removeContact(id)),
-  fetchContacts: () => dispatch(fetchContacts()),
+  onRemove: (id) => dispatch(contactsOperations.remove(id)),
+  fetchContacts: () => dispatch(contactsOperations.fetch()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);

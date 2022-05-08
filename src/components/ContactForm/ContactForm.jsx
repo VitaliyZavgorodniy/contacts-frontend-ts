@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-// import { nanoid } from 'nanoid';
+
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
@@ -11,29 +11,29 @@ import useLocalStorage from 'hooks/useLocalStorage';
 
 import { comparedContact } from 'utils/compareContacts';
 
-const ContactForm = ({ onCreate, isLoading, contacts }) => {
+const ContactForm = ({ onCreate, isFetching, contacts }) => {
   const [name, setName] = useLocalStorage('name', '');
-  const [phone, setPhone] = useLocalStorage('phone', '');
+  const [number, setNumber] = useLocalStorage('phone', '');
   const [error, setError] = useState('');
 
   useEffect(() => {
     setError('');
-  }, [phone, name]);
+  }, [name, number]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (name.length === 0) return setError('Enter valid name');
-    if (phone.length !== 12) return setError('Enter valid phone');
-    if (comparedContact(contacts, 'phone', phone))
-      return setError('This number is already taken');
-    if (comparedContact(contacts, 'name', name))
-      return setError('This name is already taken');
+    // if (name.length === 0) return setError('Enter valid name');
+    // if (phone.length !== 12) return setError('Enter valid phone');
+    // if (comparedContact(contacts, 'phone', number))
+    //   return setError('This number is already taken');
+    // if (comparedContact(contacts, 'name', name))
+    //   return setError('This name is already taken');
 
-    onCreate({ name, phone });
+    onCreate({ name, number });
 
-    setPhone('');
     setName('');
+    setNumber('');
   };
 
   return (
@@ -44,19 +44,19 @@ const ContactForm = ({ onCreate, isLoading, contacts }) => {
         type="text"
         placeholder="Enter name"
         value={name}
-        disabled={isLoading}
+        disabled={isFetching}
         onChange={(e) => setName(e.target.value)}
       />
       <PhoneInput
-        value={phone}
-        onChange={(phone) => setPhone(phone)}
+        value={number}
+        onChange={(number) => setNumber(number)}
         country={'ua'}
         regions={'europe'}
         inputProps={{
-          name: 'phone',
+          name: 'number',
           required: true,
           autoFocus: true,
-          disabled: isLoading,
+          disabled: isFetching,
         }}
       />
 
@@ -82,16 +82,16 @@ const ErrorInfo = styled.p`
   color: red;
 `;
 
-ContactForm.propTypes = {
-  onCreate: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      phone: PropTypes.string.isRequired,
-    })
-  ),
-};
+// ContactForm.propTypes = {
+//   onCreate: PropTypes.func.isRequired,
+//   isFetching: PropTypes.bool.isRequired,
+//   contacts: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       number: PropTypes.string.isRequired,
+//     })
+//   ),
+// };
 
 export default ContactForm;

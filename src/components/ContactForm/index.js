@@ -1,16 +1,16 @@
 import { connect } from 'react-redux';
 import { default as ContactForm } from './ContactForm';
 
-import { createContact } from 'store/operations/contactsOperations';
-import { getAllContacts, getIsLoading } from 'selectors/contactSelector';
+import { contactsOperations, contactsSelectors } from 'store/contacts';
 
 const mapStateToProps = (state) => ({
-  contacts: getAllContacts(state),
-  isLoading: getIsLoading(state),
+  contacts: contactsSelectors.getItems(state),
+  isFetching: contactsSelectors.getIsFetchingCreate(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCreate: (data) => dispatch(createContact(data)),
+  onCreate: (contact) => dispatch(contactsOperations.create(contact)),
+  fetchContacts: () => dispatch(contactsOperations.fetch()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

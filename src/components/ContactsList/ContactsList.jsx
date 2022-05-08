@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const ContactsList = ({ contacts, isLoading, onRemove, fetchContacts }) => {
+const ContactsList = ({ contacts, isFetching, onRemove, fetchContacts }) => {
   useEffect(() => {
     fetchContacts();
   }, [fetchContacts]);
 
   const renderList = (items) =>
-    items.map(({ id, name, phone }) => (
+    items.map(({ id, name, number }) => (
       <li key={id}>
         <span>
-          {name} | {phone}
+          {name} | {number}
         </span>
         <button onClick={() => onRemove(id)}>delete</button>
       </li>
@@ -18,8 +18,8 @@ const ContactsList = ({ contacts, isLoading, onRemove, fetchContacts }) => {
 
   return (
     <div>
-      {isLoading ? <div>Loading</div> : null}
-      <ul>{contacts.length ? renderList(contacts) : 'No contacts'}</ul>
+      {isFetching ? <div>isFetching</div> : null}
+      <ul>{contacts?.length ? renderList(contacts) : 'No contacts'}</ul>
     </div>
   );
 };
@@ -29,11 +29,12 @@ ContactsList.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      phone: PropTypes.string.isRequired,
-    })
+      number: PropTypes.string.isRequired,
+    }).isRequired
   ),
-  isLoading: PropTypes.bool,
+  isFetching: PropTypes.bool,
   onRemove: PropTypes.func.isRequired,
+  fetchContacts: PropTypes.func.isRequired,
 };
 
 export default ContactsList;

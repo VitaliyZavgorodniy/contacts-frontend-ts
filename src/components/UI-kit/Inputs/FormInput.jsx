@@ -10,7 +10,14 @@ import IconButton from '@mui/material/IconButton';
 import EmailIcon from '@mui/icons-material/Email';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const FormInput = ({ name, value, onChange, placeholder, type }) => (
+const FormInput = ({
+  onChange,
+  name,
+  value,
+  autoComplete,
+  placeholder,
+  type,
+}) => (
   <FormControl>
     <InputLabel htmlFor={name}>{name}</InputLabel>
     <OutlinedInput
@@ -19,6 +26,7 @@ const FormInput = ({ name, value, onChange, placeholder, type }) => (
       type={'text'}
       value={value}
       placeholder={placeholder}
+      autoComplete={autoComplete}
       onChange={(e) => onChange(e.target.value)}
       endAdornment={
         <InputAdornment position="end">
@@ -27,7 +35,7 @@ const FormInput = ({ name, value, onChange, placeholder, type }) => (
           </IconButton>
         </InputAdornment>
       }
-      margin="normal"
+      margin="dense"
       required
     />
   </FormControl>

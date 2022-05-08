@@ -1,16 +1,15 @@
 import { connect } from 'react-redux';
-import { default as SignUpPage } from './SignUpPage';
+import { default as NavigationUser } from './NavigationUser';
 
 import { authSelectors } from 'store/auth';
 import { authOperations } from 'store/auth';
 
 const mapStateToProps = (state) => ({
-  isLoggedIn: authSelectors.getLoggedIn(state),
+  user: authSelectors.getUser(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogin: (data) => dispatch(authOperations.logIn(data)),
   onLogout: () => dispatch(authOperations.logOut()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationUser);

@@ -36,7 +36,7 @@ const PasswordInput = ({ name, value, placeholder, onChange }) => {
             </IconButton>
           </InputAdornment>
         }
-        margin="normal"
+        margin="dense"
         required
       />
     </FormControl>

@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { default as Filter } from './Filter';
 
-import { updateFilter } from 'store/actions/filterActions';
-import { getFilter } from 'selectors/contactSelector';
+import { updateFilter } from 'store/filter';
+import { filterSelectors } from 'store/filter';
 
 const mapStateToProps = (state) => ({
-  value: getFilter(state),
+  value: filterSelectors.getFilter(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

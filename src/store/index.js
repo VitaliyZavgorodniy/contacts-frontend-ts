@@ -16,12 +16,14 @@ import thunk from 'redux-thunk';
 
 import storage from 'redux-persist/lib/storage';
 
-import rootReducer from './reducers';
+import { authReducer } from './auth';
+import { contactsReducer } from './contacts';
+import { filterReducer } from './filter';
 
-const persistConfig = {
-  key: 'root',
+const authPersistConfig = {
+  key: 'auth',
   storage,
-  whitelist: [],
+  whitelist: ['token'],
 };
 
 const serializableMiddleware = createSerializableStateInvariantMiddleware({
@@ -30,10 +32,12 @@ const serializableMiddleware = createSerializableStateInvariantMiddleware({
 
 const middleware = [thunk, serializableMiddleware];
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    auth: persistReducer(authPersistConfig, authReducer),
+    filter: filterReducer,
+    contacts: contactsReducer,
+  },
   middleware,
 });
 
