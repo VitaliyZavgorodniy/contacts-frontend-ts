@@ -25,11 +25,17 @@ const signUp = createAsyncThunk(
 
       return data;
     } catch (err) {
-      const { email, password } = err.response.data.errors;
+      console.log(err?.response?.data);
+      if (err?.response?.data?.errors) {
+        const { email, password } = err.response.data.errors;
 
-      if (email?.message) showNotification(email.message);
-      if (password?.message) showNotification(password.message);
-      showNotification('Sign up error!');
+        if (email?.message) showNotification(email.message);
+        if (password?.message) showNotification(password.message);
+      }
+
+      if (err?.response?.data?.name === 'MongoError') {
+        showNotification('User already exists!');
+      }
 
       return rejectWithValue(err.response.data);
     }

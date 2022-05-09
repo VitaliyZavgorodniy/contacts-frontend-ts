@@ -13,3 +13,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);
+
+// vitaliy2@mail.com
+// 1234567
