@@ -15,8 +15,8 @@ const root = ReactDOM.createRoot(container);
 // qwerty12345
 
 root.render(
-  // <BrowserRouter basename="/goit-react-hw-08-phonebook/">
-  <BrowserRouter>
+  <BrowserRouter basename="/goit-react-hw-08-phonebook/">
+  {/* <BrowserRouter> */}
     <Provider store={store.store}>
       <PersistGate loading={null} persistor={store.persistor}>
         <App />
