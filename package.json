@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-08-phonebook",
+  "name": "contacts-frontend-ts",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://VitaliyZavgorodniy.github.io/goit-react-hw-08-phonebook/",
+  "homepage": "https://VitaliyZavgorodniy.github.io/contacts-frontend-ts/",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
