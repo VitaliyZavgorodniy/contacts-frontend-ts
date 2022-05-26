@@ -8,15 +8,12 @@ import App from 'components/App';
 
 import 'index.css';
 
-const container = document.getElementById('root');
+const container = document.getElementById('root')!;
 const root = ReactDOM.createRoot(container);
 
-// goitvitaliy@mail.com
-// qwerty12345
-
 root.render(
-  <BrowserRouter basename="/goit-react-hw-08-phonebook/">
-  {/* <BrowserRouter> */}
+  <BrowserRouter basename="/contacts-frontend-ts/">
+    {/* <BrowserRouter> */}
     <Provider store={store.store}>
       <PersistGate loading={null} persistor={store.persistor}>
         <App />

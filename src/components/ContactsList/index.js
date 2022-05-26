@@ -4,7 +4,7 @@ import { default as ContactsList } from './ContactsList';
 import { filterSelectors } from 'store/filter';
 import { contactsOperations, contactsSelectors } from 'store/contacts';
 
-import { filterContacts } from 'utils/filterContacts';
+import { filterContacts } from 'utils/filterContacts.ts';
 
 const mapStateToProps = (state) => ({
   contacts: filterContacts(

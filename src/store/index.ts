@@ -13,6 +13,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import thunk from 'redux-thunk';
+import thunkMiddleware from 'redux-thunk';
 
 import storage from 'redux-persist/lib/storage';
 
@@ -30,7 +31,7 @@ const serializableMiddleware = createSerializableStateInvariantMiddleware({
   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 });
 
-const middleware = [thunk, serializableMiddleware];
+const middleware = [thunk, serializableMiddleware, thunkMiddleware];
 
 const store = configureStore({
   reducer: {
@@ -43,5 +44,7 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 // eslint-disable-next-line
 export default { store, persistor };

@@ -2,8 +2,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Input from 'components/UI-kit/Inputs/Input';
+import { FilterType } from 'types/FilterType';
 
-const Filter = ({ value, onUpdate }) => (
+interface Props {
+  value: FilterType;
+  onUpdate: Function;
+}
+
+const Filter = ({ value, onUpdate }: Props) => (
   <Wrapper>
     <Title>Search</Title>
     <Input onChange={(e) => onUpdate(e.target.value)} value={value} />

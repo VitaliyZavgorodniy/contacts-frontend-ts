@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
+import { AppDispatch } from 'store';
 
 import LinearProgress from '@mui/material/LinearProgress';
 
@@ -12,15 +13,16 @@ import LoadingScreen from 'components/LoadingScreen';
 import { authOperations, authSelectors } from 'store/auth';
 
 const HomePage = lazy(() => import('pages/HomePage'));
-const SignUpPage = lazy(() => import('pages/SignUpPage'));
+const SignUpPage = lazy(() => import('pages/SignUpPage')) ;
 const LoginPage = lazy(() => import('pages/LoginPage'));
 
 const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const isLoadingUser = useSelector(authSelectors.getIsLoadingUser);
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(authOperations.refresh());
   }, [dispatch]);
 
